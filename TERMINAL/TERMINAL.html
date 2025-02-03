@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Terminal</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .terminal-window {
+            background-color: black;
+            padding: 20px;
+            width: 100%;
+            height: 100%;
+            border: none;
+            box-shadow: none;
+            position: relative;
+            overflow-y: auto;
+            word-wrap: break-word;
+        }
+
+        .command-line {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .command-line p {
+            margin: 0;
+        }
+
+        .command-line-container {
+            display: flex;
+            align-items: center;
+            margin-top: 0;
+        }
+
+        .command-line input {
+            background-color: black;
+            color: white; /* Changed the text color to white */
+            border: none;
+            width: 100%;
+            font-size: 16px;
+            margin-left: 5px;
+            padding-left: 5px;
+            outline: none;
+            line-height: 1.2;
+        }
+
+        .prompt {
+            display: inline;
+            line-height: 1.5;
+            color: lime; /* Prompt still in lime */
+        }
+
+        .prompt .white {
+            color: white; /* White separator '@' and '#' */
+        }
+
+        .history {
+            margin-bottom: 5px;
+        }
+
+        /* New color styling for the history prompt */
+        .history .prompt {
+            color: lime;
+        }
+
+        .history .prompt .white {
+            color: white;
+        }
+
+        /* Help command list styling */
+        .help-list {
+            font-family: 'Courier New', monospace;
+            margin-top: 10px;
+        }
+
+        .help-list p {
+            margin: 0;
+            padding: 5px 0;
+        }
+
+        .help-list span.command {
+            color: lime;
+            width: 25%;
+            display: inline-block;
+            text-align: left;
+        }
+
+        .help-list span.description {
+            color: white;
+            display: inline-block;
+            text-align: left;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="terminal-window" id="terminal-window">
+        <div class="command-line" id="command-line">
+            <div class="history" id="history"></div>
+            <div class="command-line-container">
+                <span class="prompt">
+                    <span class="prompt">root</span><span class="white">@</span><span class="prompt">DoorsOS-server</span><span class="white">~$</span>
+                </span>
+                <input type="text" id="user-input" autofocus />
+            </div>
+        </div>
+    </div>
+
+    <script src="../kernel/NexShell.js"></script>
+</body>
+</html>
+

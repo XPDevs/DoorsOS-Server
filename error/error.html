@@ -12,35 +12,17 @@
             margin: 0;
             height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: flex-start;
+            align-items: flex-start;
             flex-direction: column;
             cursor: none;
         }
 
-        .error-container {
-            background-color: #000000; /* Black background for the error box */
-            padding: 20px;
-            border: 2px solid #ffffff; /* White border */
-            border-radius: 5px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
-            width: 600px;
-            text-align: center;
-            z-index: 1;
-            cursor: none;
-        }
-
-        .error-container h1 {
-            font-size: 30px;
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: #ffffff; /* White text for the error title */
-        }
-
-        .error-container p {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: #ffffff; /* White text for the paragraph */
+        /* Tux Image */
+        .tux-image {
+            width: 150px;
+            margin-top: 20px;
+            margin-left: 20px;
         }
 
         .status-text {
@@ -48,9 +30,8 @@
             white-space: pre-wrap;
             word-wrap: break-word;
             text-align: left;
-            margin-top: 30px;
-            position: absolute;
-            top: 20px;
+            margin-top: 10px;
+            position: relative;
             left: 20px;
             z-index: 0;
             width: 90%;
@@ -58,12 +39,6 @@
             max-height: 80vh; /* Allow a limited height */
             overflow-y: auto; /* Allow scrolling */
             padding-right: 10px;
-        }
-
-        /* Tux Image */
-        .tux-image {
-            width: 150px;
-            margin-bottom: 20px;
         }
 
         /* Hide scrollbar */
@@ -90,13 +65,8 @@
     </style>
 </head>
 <body>
-    <div class="error-container" id="error-container">
-        <!-- Tux Image -->
-        <img src="tux.jpg" alt="Tux the penguin" class="tux-image">
-        <h1>Kernel Panic - Error 00001</h1>
-        <p>System halted. Attempting to restore...</p>
-        <p>This may take a few moments.</p>
-    </div>
+    <!-- Tux Image -->
+    <img src="tux.jpg" alt="Tux the penguin" class="tux-image">
 
     <div id="status" class="status-text"></div>
 
@@ -270,3 +240,4 @@
     </script>
 </body>
 </html>
+

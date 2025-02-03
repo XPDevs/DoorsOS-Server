@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image with Spinner</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #000;
+      font-family: Arial, sans-serif;
+      color: #fff;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .spinner {
+      margin: 20px auto;
+      width: 40px;
+      height: 40px;
+      border: 4px solid transparent;
+      border-top: 4px solid #ffffff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    #loading-bar {
+      font-size: 18px;
+      margin-top: 10px;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    <div class="spinner"></div>
+    <p>Restarting your Server, this may take a while...</p>
+    <p id="loading-bar">[----------] 0%</p>
+  </div>
+
+  <script>
+    console.log('%cVersion 1.4.0', 'color: red; font-style: italic;');
+    console.log(`%cFile: ${document.location.pathname}`, 'color: red; font-style: italic;');
+
+    function hideDefaultCursor() {
+      const globalStyle = document.createElement('style');
+      globalStyle.innerHTML = `* { cursor: none !important; }`;
+      document.head.appendChild(globalStyle);
+      console.log("Default cursor hidden");
+    }
+
+    hideDefaultCursor();
+
+    document.addEventListener('contextmenu', function(e) {
+      if (!e.shiftKey) {
+        e.preventDefault();
+      }
+    });
+
+    let progress = 0;
+    let bar = "[----------]";
+    const loadingBar = document.getElementById("loading-bar");
+
+    function updateLoadingBar() {
+      progress += 10;
+      let hashes = "#".repeat(progress / 10);
+      let spaces = "-".repeat(10 - (progress / 10));
+      bar = `[${hashes}${spaces}] ${progress}%`;
+      loadingBar.textContent = bar;
+
+      if (progress < 100) {
+        setTimeout(updateLoadingBar, 60000);
+      }
+    }
+
+    setTimeout(updateLoadingBar, 60000);
+
+    setTimeout(() => {
+      window.location.href = "../index.html";
+    }, 600000);
+  </script>
+</body>
+</html>
+

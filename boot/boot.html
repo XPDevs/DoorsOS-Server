@@ -3,185 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desktop Loading Screen</title>
+    <title>DoorsOS Server Startup</title>
     <style>
         body {
+            font-family: "Courier New", monospace;
+            background-color: #000000; /* Black background */
+            color: #ffffff; /* White text for readability */
             margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             height: 100vh;
-            font-family: Arial, sans-serif;
-            background-color: black; /* Always black background */
-            color: white; /* Text color always white */
-        }
-
-        /* Center container for image and spinner */
-        .center-container {
             display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            cursor: none;
         }
 
-        /* Smaller image */
-        .logo {
-            width: 100px;
-            height: auto;
-            margin-bottom: 30px; /* Increased space between image and spinner */
-        }
-
-        /* White spinner */
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 6px solid rgba(255, 255, 255, 0.2);
-            border-top: 6px solid white; /* White color for spinner */
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-.copyright {
-font-size: 14px;
-color: grey;
-font-weight: bold;
-text-align: center;
-}
-
-        /* Powered By JS popup */
-        .footer {
-            position: fixed;
-            bottom: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 20px;
-            font-weight: bold;
-            color: white; /* Text color white */
-            opacity: 0;
-            animation: slideUp 1s forwards, stayVisible 3s forwards 1s, slideDown 1s forwards 5s;
-        }
-
-        .js-box {
-            background-color: #f7df1e;
-            color: black;
+        .status-text {
             font-size: 14px;
-            font-weight: bold;
-            font-family: "Arial Black", sans-serif;
-            padding: 8px 16px;
-            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            text-align: left;
+            margin-top: 10px;
+            position: relative;
+            left: 20px;
+            z-index: 0;
+            width: 90%;
+            color: #ffffff; /* White text for the terminal-like output */
+            max-height: 80vh; /* Allow a limited height */
+            overflow-y: auto; /* Allow scrolling */
+            padding-right: 10px;
+        }
+
+        /* Hide scrollbar */
+        .status-text::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Image styles for the two images on the left */
+        .images-container {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+            justify-content: flex-start; /* Align images to the left */
+            margin-top: 20px;
+            margin-left: 20px;
+            width: 90%;
         }
 
-        @keyframes slideUp {
-            from {
-                bottom: -60px;
-                opacity: 0;
-            }
-            to {
-                bottom: 20px;
-                opacity: 1;
-            }
+        .image {
+            width: 120px; /* Smaller size for the images */
+            margin-right: 20px; /* Space between images */
         }
 
-        @keyframes stayVisible {
-            from {
-                opacity: 1;
-            }
-            to {
-                opacity: 1;
-            }
+        /* Make the SPLASH.jpg image wider */
+        .splash-image {
+            width: 200px; /* Wider SPLASH image */
         }
 
-        @keyframes slideDown {
-            from {
-                bottom: 20px;
-                opacity: 1;
-            }
-            to {
-                bottom: -60px;
-                opacity: 0;
-            }
+        /* Animation for the # characters moving left and right inside the brackets */
+        .brackets {
+            display: inline;
+            font-size: 16px;
         }
 
-        /* Desktop media query */
-        @media (max-width: 1024px) {
-            .logo {
-                width: 80px;
-            }
-            .spinner {
-                width: 40px;
-                height: 40px;
-                border-width: 4px;
-            }
-            .footer {
-                font-size: 16px;
-            }
-            .js-box {
-                font-size: 14px;
-                padding: 5px 5px;
-            }
+        .hash {
+            display: inline;
+            font-weight: bold;
+            color: red;
+        }
+
+        /* Animate the hashes with a more simplified movement */
+        .hash1 {
+            animation: moveHash1 1s infinite alternate;
+        }
+
+        .hash2 {
+            animation: moveHash2 1s infinite alternate;
+        }
+
+        .hash3 {
+            animation: moveHash3 1s infinite alternate;
+        }
+
+        /* Keyframe for the moving effect */
+        @keyframes moveHash1 {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes moveHash2 {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes moveHash3 {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+            100% { transform: translateX(0); }
+        }
+
+        .message-next {
+            display: inline;
+            font-size: 16px;
+            margin-left: 10px;
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
-
-    <div class="center-container">
-        <img src="SPLASH.jpg" alt="Logo" class="logo"> <!-- Replace with your image -->
-        <div class="spinner"></div>
-<br><br><br><br>
-<p class="copyright">&copy XPDevs</p>
-    </div>
-
-    <div class="footer">
-        <span>Powered By</span>
-        <div class="js-box">JS</div>
-    </div>
+    <div id="status" class="status-text"></div>
 
     <script>
-        // Show a version for version control
-        console.log('%cVersion 1.4.0', 'color: red; font-style: italic;');
+        function simulateStartupProcess() {
+            const statusDiv = document.getElementById("status");
 
-        // Log the current HTML file and its file path
-        console.log(`%cFile: ${document.location.pathname}`, 'color: red; font-style: italic;');
+            // Ubuntu server startup messages
+            const startupText = [
+                "Ubuntu 20.04 LTS DoorsOS Server tty1\n",
+                "DoorsOS Server login: root\n",
+                "root@DoorsOS:~# Starting DoorsOS Server...\n",
+                "Starting system services...\n",
+                "Starting network services...\n",
+                "Starting system logging...\n",
+                "Starting OpenSSH server...\n",
+                "Starting disk services...\n",
+                "Checking root filesystem...\n",
+                "Filesystem check complete.\n",
+                "Mounting root filesystem...\n",
+                "Root filesystem mounted.\n",
+                "Initializing hardware...\n",
+                "Hardware initialized.\n",
+                "Starting network interfaces...\n",
+                "Network interfaces started.\n",
+                "Starting firewall...\n",
+                "Firewall started.\n",
+                "Starting networking...\n",
+                "Networking started.\n",
+                "Starting services...\n",
+                "System services started.\n",
+                "All systems operational.\n",
+                "Server is now online.\n",
+                "DoorsOS server is fully booted.\n",
+                "Login session ready for interaction.\n",
+                "User ready to log in.\n"
+            ];
 
-        // Function to hide the default cursor globally
-        function hideDefaultCursor() {
-            const globalStyle = document.createElement('style');
-            globalStyle.innerHTML = `* { cursor: none !important; }`;
-            document.head.appendChild(globalStyle);
-            console.log("Default cursor hidden");
+            let i = 0;
+
+            function appendText() {
+                if (i < startupText.length) {
+                    const newText = startupText[i++];
+                    statusDiv.innerText += newText;
+                    statusDiv.scrollTop = statusDiv.scrollHeight; // Auto-scroll to the bottom
+                    setTimeout(appendText, 1000); // Add a delay between messages for better effect
+                } else {
+                    // Display the two images after the startup process
+                    const imagesContainer = document.createElement("div");
+                    imagesContainer.classList.add("images-container");
+
+                    const splashImage = document.createElement("img");
+                    splashImage.src = "SPLASH.jpg";
+                    splashImage.alt = "DoorsOS Splash";
+                    splashImage.classList.add("image", "splash-image"); // Added splash-image class
+
+                    const tuxImage = document.createElement("img");
+                    tuxImage.src = "tux.jpg";
+                    tuxImage.alt = "Tux the penguin";
+                    tuxImage.classList.add("image");
+
+                    imagesContainer.appendChild(splashImage);
+                    imagesContainer.appendChild(tuxImage);
+                    document.body.appendChild(imagesContainer);
+
+                    // After the images, display the welcome message
+                    const welcomeMessage = document.createElement("div");
+                    welcomeMessage.classList.add("status-text");
+                    welcomeMessage.innerText = "[SYSTEM] Welcome to DoorsOS Server\n";
+                    document.body.appendChild(welcomeMessage);
+
+                    // Display the animated brackets and message
+                    const bracketsMessage = document.createElement("div");
+                    bracketsMessage.classList.add("status-text");
+
+                    const brackets = document.createElement("span");
+                    brackets.classList.add("brackets");
+                    brackets.innerHTML = "[<span class='hash hash1'>#</span><span class='hash hash2'>#</span><span class='hash hash3'>#</span>]";
+
+                    const messageNext = document.createElement("span");
+                    messageNext.classList.add("message-next");
+                    messageNext.innerText = "Loading system resources...";
+
+                    bracketsMessage.appendChild(brackets);
+                    bracketsMessage.appendChild(messageNext);
+                    document.body.appendChild(bracketsMessage);
+
+                    // Redirect to terminal after 10 seconds
+                    setTimeout(function() {
+                        window.location.href = "../TERMINAL/TERMINAL.html";
+                    }, 10000); // 10 seconds after the messages are done
+                }
+            }
+
+            appendText();
         }
 
-        // Hide the cursor when the page loads
-        hideDefaultCursor();
-
-        // Function to redirect after the footer animation ends
-        setTimeout(function() {
-            window.location.href = "check.html"; // Replace with your target HTML file
-        }, 6000); // 6000ms (6 seconds) for the footer to finish sliding down
-
-        // Prevent context menu unless Shift is held
-        document.addEventListener('contextmenu', function(e) {
-            if (!e.shiftKey) {
-                e.preventDefault();
-            }
-        });
+        // Start the simulation
+        simulateStartupProcess();
     </script>
 </body>
 </html>
