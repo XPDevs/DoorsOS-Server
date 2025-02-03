@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desktop Loading Screen</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: black; /* Always black background */
+            color: white; /* Text color always white */
+        }
+
+        /* Center container for image and spinner */
+        .center-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Smaller image */
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 30px; /* Increased space between image and spinner */
+        }
+
+        /* White spinner */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 6px solid rgba(255, 255, 255, 0.2);
+            border-top: 6px solid white; /* White color for spinner */
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+.copyright {
+font-size: 14px;
+color: grey;
+font-weight: bold;
+text-align: center;
+}
+
+        /* Powered By JS popup */
+        .footer {
+            position: fixed;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white; /* Text color white */
+            opacity: 0;
+            animation: slideUp 1s forwards, stayVisible 3s forwards 1s, slideDown 1s forwards 5s;
+        }
+
+        .js-box {
+            background-color: #f7df1e;
+            color: black;
+            font-size: 14px;
+            font-weight: bold;
+            font-family: "Arial Black", sans-serif;
+            padding: 8px 16px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes slideUp {
+            from {
+                bottom: -60px;
+                opacity: 0;
+            }
+            to {
+                bottom: 20px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes stayVisible {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                bottom: 20px;
+                opacity: 1;
+            }
+            to {
+                bottom: -60px;
+                opacity: 0;
+            }
+        }
+
+        /* Desktop media query */
+        @media (max-width: 1024px) {
+            .logo {
+                width: 80px;
+            }
+            .spinner {
+                width: 40px;
+                height: 40px;
+                border-width: 4px;
+            }
+            .footer {
+                font-size: 16px;
+            }
+            .js-box {
+                font-size: 14px;
+                padding: 5px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="center-container">
+        <img src="SPLASH.jpg" alt="Logo" class="logo"> <!-- Replace with your image -->
+        <div class="spinner"></div>
+<br><br><br><br>
+<p class="copyright">&copy XPDevs</p>
+    </div>
+
+    <div class="footer">
+        <span>Powered By</span>
+        <div class="js-box">JS</div>
+    </div>
+
+    <script>
+        // Show a version for version control
+        console.log('%cVersion 1.4.0', 'color: red; font-style: italic;');
+
+        // Log the current HTML file and its file path
+        console.log(`%cFile: ${document.location.pathname}`, 'color: red; font-style: italic;');
+
+        // Function to hide the default cursor globally
+        function hideDefaultCursor() {
+            const globalStyle = document.createElement('style');
+            globalStyle.innerHTML = `* { cursor: none !important; }`;
+            document.head.appendChild(globalStyle);
+            console.log("Default cursor hidden");
+        }
+
+        // Hide the cursor when the page loads
+        hideDefaultCursor();
+
+        // Function to redirect after the footer animation ends
+        setTimeout(function() {
+            window.location.href = "../end/rest.html"; // Replace with your target HTML file
+        }, 6000); // 6000ms (6 seconds) for the footer to finish sliding down
+
+        // Prevent context menu unless Shift is held
+        document.addEventListener('contextmenu', function(e) {
+            if (!e.shiftKey) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
+

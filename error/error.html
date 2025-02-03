@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kernel Panic - Error 00001</title>
+    <style>
+        body {
+            font-family: "Courier New", monospace;
+            background-color: #000000; /* Black background */
+            color: #ffffff; /* White text for readability */
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            cursor: none;
+        }
+
+        .error-container {
+            background-color: #000000; /* Black background for the error box */
+            padding: 20px;
+            border: 2px solid #ffffff; /* White border */
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
+            width: 600px;
+            text-align: center;
+            z-index: 1;
+            cursor: none;
+        }
+
+        .error-container h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #ffffff; /* White text for the error title */
+        }
+
+        .error-container p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #ffffff; /* White text for the paragraph */
+        }
+
+        .status-text {
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            text-align: left;
+            margin-top: 30px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 0;
+            width: 90%;
+            color: #ffffff; /* White text for the terminal-like output */
+            max-height: 80vh; /* Allow a limited height */
+            overflow-y: auto; /* Allow scrolling */
+            padding-right: 10px;
+        }
+
+        /* Tux Image */
+        .tux-image {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        /* Hide scrollbar */
+        .status-text::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Spinner Styles */
+        .spinner {
+            border: 4px solid transparent;
+            border-top: 4px solid #ffffff; /* White spinner */
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container" id="error-container">
+        <!-- Tux Image -->
+        <img src="tux.jpg" alt="Tux the penguin" class="tux-image">
+        <h1>Kernel Panic - Error 00001</h1>
+        <p>System halted. Attempting to restore...</p>
+        <p>This may take a few moments.</p>
+    </div>
+
+    <div id="status" class="status-text"></div>
+
+    <audio id="checksumAudio" loop>
+        <source src="CHECKSUM.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        let isAudioPlayed = false;
+
+        // Wait for user click to play the audio
+        document.addEventListener('click', function() {
+            if (!isAudioPlayed) {
+                document.getElementById("checksumAudio").play();
+                isAudioPlayed = true; // Ensure audio plays only once
+            }
+        });
+
+        function simulateBootProcess() {
+            const statusDiv = document.getElementById("status");
+
+            // Over 100 kernel panic recovery messages
+            const bootText = [
+                "Kernel panic - not syncing: VFS: Unable to mount root fs on unknown-block(0,0)\n",
+                "CPU: 0 PID: 1 Comm: swapper/0 Not tainted 5.4.0-42-generic #46-Ubuntu\n",
+                "Hardware name: ASUS Z170-A /Z170-A, BIOS 2201 10/07/2016\n",
+                "Call Trace:\n",
+                " [<ffffffff81027cf9>] dump_stack+0x66/0x8a\n",
+                " [<ffffffff8102765d>] panic+0xd9/0x1b0\n",
+                " [<ffffffff810b0d3f>] mount_block_root+0x1cf/0x1f0\n",
+                " [<ffffffff810b13d3>] prepare_namespace+0x143/0x150\n",
+                " [<ffffffff81061e11>] kernel_init+0x121/0x130\n",
+                " [<ffffffff810c58f9>] ret_from_fork+0x1f/0x30\n",
+                "---[ end Kernel panic - not syncing ]---\n",
+                "Attempting to restart...\n",
+                "Checking for emergency rescue...\n",
+                "Rescue mode detected.\n",
+                "Loading emergency filesystem...\n",
+                "Mounting temporary root filesystem...\n",
+                "Performing system recovery...\n",
+                "Rebuilding initrd...\n",
+                "Restoring filesystems...\n",
+                "Recovery complete. System rebooting...\n",
+                "Rebooting system...\n",
+                "Clearing temporary data...\n",
+                "Kernel successfully recovered.\n",
+                "System operational. Starting services...\n",
+                "All systems go.\n",
+                "System online.\n",
+                "Memory check completed. 4096MB available.\n",
+                "Rebuilding swap partition...\n",
+                "Restoring user settings...\n",
+                "Disk check: All filesystems clean.\n",
+                "Restoring system settings...\n",
+                "Networking service initialized.\n",
+                "Restarting system processes...\n",
+                "Rebooting hardware...\n",
+                "Checking storage devices...\n",
+                "External devices detected: USB, External HDD\n",
+                "External storage initialized.\n",
+                "Fetching system updates...\n",
+                "System update completed successfully.\n",
+                "Restoring missing kernel modules...\n",
+                "Kernel modules restored.\n",
+                "Attempting to mount swap partition...\n",
+                "Swap partition mounted.\n",
+                "Synchronizing filesystems...\n",
+                "System time synchronization...\n",
+                "Disk I/O optimization completed.\n",
+                "Checking log files...\n",
+                "Log files restored.\n",
+                "Reinitializing system services...\n",
+                "System services restored.\n",
+                "Checking user accounts...\n",
+                "User accounts restored.\n",
+                "Restoring graphical environment...\n",
+                "Graphics drivers loaded.\n",
+                "Rebuilding X11 configuration...\n",
+                "System display settings restored.\n",
+                "Systemd services restored.\n",
+                "System process optimization...\n",
+                "Memory optimization completed.\n",
+                "Checking CPU configuration...\n",
+                "CPU configuration restored.\n",
+                "Finalizing kernel restore...\n",
+                "Kernel restore completed.\n",
+                "Clearing cache...\n",
+                "Cache cleared.\n",
+                "Restoring system integrity...\n",
+                "System integrity check passed.\n",
+                "Clearing temporary session data...\n",
+                "Session data cleared.\n",
+                "Verifying disk space...\n",
+                "Disk space check passed.\n",
+                "Rebooting system in 5 seconds...\n",
+                "Rebooting...\n",
+                "Performing final checks...\n",
+                "System checks complete.\n",
+                "All processes running successfully.\n",
+                "Final system scan completed.\n",
+                "Network services verified.\n",
+                "Security settings restored.\n",
+                "System operating normally.\n",
+                "Preparing system for shutdown...\n",
+                "System shutdown initiated...\n",
+                "Logging out user...\n",
+                "User logged out.\n",
+                "Shutting down system...\n",
+                "System shutting down...\n",
+                "Powering off...\n",
+                "System powered off successfully.\n",
+                "Shutting down in 30 seconds...\n",
+                "System halted.\n",
+                "System restarting in 5 seconds...\n",
+                "Rebooting...\n",
+                "Clearing kernel cache...\n",
+                "System kernel cleared.\n",
+                "Restoring kernel modules...\n",
+                "Kernel modules restored successfully.\n",
+                "Finalizing hardware reset...\n",
+                "Hardware reset completed.\n",
+                "Checking for hardware updates...\n",
+                "Hardware updates completed.\n",
+                "Verifying security patches...\n",
+                "Security patches installed successfully.\n",
+                "Checking for system vulnerabilities...\n",
+                "No vulnerabilities detected.\n",
+                "System security verification complete.\n",
+                "Testing system load...\n",
+                "System load optimal.\n",
+                "Cleaning unused system files...\n",
+                "Unused files cleaned.\n",
+                "System ready for user interaction.\n",
+                "All systems operational.\n",
+                "Performing final user authentication...\n",
+                "User authenticated.\n",
+                "System back online.\n",
+                "System processes are running.\n",
+                "System ready for use.\n",
+                "Starting services...\n",
+                "Services started.\n",
+                "System rebooted successfully.\n",
+                "Kernel panic recovery complete.\n",
+                "All errors resolved.\n",
+                "System fully restored.\n",
+                "System online.\n",
+                "Kernel panic resolved.\n",
+                "System operational.\n"
+            ];
+
+            let i = 0;
+
+            function appendText() {
+                if (i < bootText.length) {
+                    const newText = bootText[i++];
+                    statusDiv.innerText += newText;
+                    statusDiv.scrollTop = statusDiv.scrollHeight; // Auto-scroll to the bottom
+                    setTimeout(appendText, 1000); // Add a delay between messages for better effect
+                } else {
+                    // After the last message, redirect to another HTML file
+                    window.location.href = '../end/rest.html'; // Change 'nextpage.html' to your target page
+                }
+            }
+
+            appendText();
+        }
+
+        // Start the simulation
+        simulateBootProcess();
+    </script>
+</body>
+</html>
